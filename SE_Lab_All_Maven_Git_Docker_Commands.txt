@@ -1,0 +1,162 @@
+SE LAB INTERNAL — ALL COMMANDS
+
+1. MAVEN
+
+Project: C:LATITUD 5410_Lab_Practice
+
+Actual values: groupId=KMIT artifactId=VehicleRentalManagement
+version=0.0.1-SNAPSHOT packaging=war finalName=VehicleRentalManagement
+
+Commands: mvn -v mvn validate mvn compile mvn test mvn package mvn clean
+mvn clean package mvn install mvn dependency:tree mvn run build
+
+mvn run build FAILED because “run” is not a valid Maven lifecycle phase.
+
+Eclipse: Right-click project -> Run As -> Maven build… -> Goals -> Run
+
+Goals practiced: validate compile test package install clean package
+dependency:tree
+
+Adding dependency in Eclipse: Right-click project -> Maven -> Add
+Dependency
+
+JUnit: Group Id: junit Artifact Id: junit Version: 4.13.2 Scope: test
+
+Then: Right-click project -> Maven -> Update Project… -> OK
+
+Important paths: Project: C:LATITUD 5410_Lab_Practice
+
+POM: C:LATITUD 5410_Lab_Practice.xml
+
+WAR: C:LATITUD 5410_Lab_Practice.war
+
+Local Maven repository: C:LATITUD 5410.m2
+
+Installed project: C:LATITUD 5410.m2\0.0.1-SNAPSHOT
+
+Installed POM: C:LATITUD 5410.m2\0.0.1-SNAPSHOT.1-SNAPSHOT.pom
+
+Installed WAR: C:LATITUD 5410.m2\0.0.1-SNAPSHOT.1-SNAPSHOT.war
+
+Lifecycle: validate -> compile -> test -> package -> verify -> install
+-> deploy Clean is a phase of the clean lifecycle.
+
+CTPI: Compile -> Test -> Package -> Install
+
+Meanings: pom.xml = Maven project configuration target = current build
+output .m2/repository = local Maven artifact storage/cache package =
+creates WAR/JAR in target install = package/build + install artifact in
+.m2 dependency = library/artifact used by project plugin = performs
+Maven build actions dependency:tree = plugin goal, not lifecycle phase
+SNAPSHOT = development version packaging=war = create WAR
+finalName=VehicleRentalManagement = generated artifact name
+
+2. GIT + GITHUB
+
+Actual local project: C:LATITUD 5410
+
+Actual remote: https://github.com/psunnykiran/practice.git
+
+Initial/global: git init git config –global user.name “your user name”
+git config –global user.email “your email id” git config –global
+user.name git config –global user.email
+
+Basic: git status git add . git add vehicle.jsp git commit -m “intial
+commit” git branch -M main
+
+Remote: git remote add origin1
+https://github.com/psunnykiran/practice.git git remote -v git push -u
+origin main git push -u origin main –force
+
+Branch: git switch -c feature/vehicle-update git switch -c
+conflict-branch git switch main git branch git branch -a git branch
+–show-current
+
+Diff/log: git diff git diff – vehicle.jsp git diff –cached git diff main
+feature-login – vehicle.jsp git log -1 –oneline git log –oneline git log
+–oneline –graph –decorate –all
+
+Feature workflow: git switch -c feature/vehicle-update git diff –
+vehicle.jsp git add vehicle.jsp git commit -m “vehicle.jsp modified” git
+switch main git merge feature/vehicle-update git push
+
+Revert: git revert 66df35e git status git push
+
+Reset: git reset –soft HEAD~1
+
+Restore: git restore vehicle.jsp git restore –staged vehicle.jsp
+
+Stash: git stash push -m “stash example” git stash list git stash pop
+
+Merge conflict: git switch -c conflict-branch git switch main git merge
+conflict-branch After resolving vehicle.jsp: git add vehicle.jsp git
+commit git push
+
+.gitignore: echo temp.txt > .gitignore git status git add .gitignore git
+commit -m “add gitignore” git push git rm –cached filename
+
+Fetch/pull: git fetch origin git pull origin main
+
+Rebase: git switch feature-branch git fetch origin git rebase
+origin/main git rebase –abort
+
+Remote troubleshooting: git remote -v git remote set-url origin
+https://github.com/psunnykiran/practice.git
+
+Git meanings: init=create local repository add=stage commit=save
+snapshot push=send commits to remote fetch=download remote refs without
+integration pull=fetch + integrate merge=combine branches revert=undo
+with a new commit reset –soft=move HEAD back, keep changes staged
+stash=temporarily save uncommitted changes restore=discard/restore or
+unstage rebase=replay commits onto another base .gitignore=ignore
+selected untracked files
+
+3. DOCKER
+
+Commands: docker –version docker login docker pull redis:latest docker
+images docker run -it redis:latest bash exit docker ps docker ps -a
+docker stop vehicle-rental docker start vehicle-rental docker rm
+vehicle-rental docker rmi redis:latest
+
+Dockerfile: FROM tomcat:9.0 COPY target/VehicleRentalManagement.war
+/usr/local/tomcat/webapps/ROOT.war EXPOSE 8080 CMD [“catalina.sh”,
+“run”]
+
+Build: docker build -t vehiclerentalapp:v1 . docker images
+
+First attempted run: docker run -d –name vehicle-rental -p 8080:8080
+vehiclerentalapp:v1
+
+It FAILED because host port 8080 was occupied.
+
+Then: docker rm vehicle-rental
+
+Successful run: docker run -d –name vehicle-rental -p 7089:8080
+vehiclerentalapp:v1
+
+Verify: docker ps docker logs vehicle-rental
+
+Browser: http://localhost:7089
+
+Docker Hub: docker tag vehiclerentalapp:v1
+YOUR_USERNAME/vehiclerentalapp:v1 docker login docker push
+YOUR_USERNAME/vehiclerentalapp:v1
+
+Port mapping: 7089 = host port 8080 = container/Tomcat port
+
+Dockerfile meanings: FROM=base image COPY=copy WAR into Tomcat
+EXPOSE=intended/documented container port CMD=command when container
+starts
+
+Docker flow: mvn clean package -> target.war -> Dockerfile -> docker
+build -t vehiclerentalapp:v1 . -> image -> docker run -d –name
+vehicle-rental -p 7089:8080 vehiclerentalapp:v1 -> container -> Tomcat
+-> localhost:7089
+
+Docker meanings: image=packaged blueprint container=instance of image
+build=create image run=create/start container ps=running containers ps
+-a=all containers stop=stop start=start existing rm=remove container
+logs=container output pull=download image push=upload image Docker
+Hub=image registry GitHub=source-code repository
+
+END
