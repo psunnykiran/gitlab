@@ -1,162 +1,571 @@
-SE LAB INTERNAL — ALL COMMANDS
+# PRACTICAL EXAM – MASTER CHEAT SHEET
 
-1. MAVEN
+========================================
+		gitsheet
+========================================
 
-Project: C:LATITUD 5410_Lab_Practice
+SET 12 – CLONE EXISTING REPOSITORY
 
-Actual values: groupId=KMIT artifactId=VehicleRentalManagement
-version=0.0.1-SNAPSHOT packaging=war finalName=VehicleRentalManagement
+git --version
 
-Commands: mvn -v mvn validate mvn compile mvn test mvn package mvn clean
-mvn clean package mvn install mvn dependency:tree mvn run build
+git clone YOUR_GITHUB_URL
 
-mvn run build FAILED because “run” is not a valid Maven lifecycle phase.
+cd repository-name
 
-Eclipse: Right-click project -> Run As -> Maven build… -> Goals -> Run
+git status
 
-Goals practiced: validate compile test package install clean package
-dependency:tree
+git add .
 
-Adding dependency in Eclipse: Right-click project -> Maven -> Add
-Dependency
+git commit -m "Updated project"
 
-JUnit: Group Id: junit Artifact Id: junit Version: 4.13.2 Scope: test
+git push origin main
 
-Then: Right-click project -> Maven -> Update Project… -> OK
 
-Important paths: Project: C:LATITUD 5410_Lab_Practice
+SET 12 – CREATE NEW REPOSITORY
 
-POM: C:LATITUD 5410_Lab_Practice.xml
+mkdir MyProject
 
-WAR: C:LATITUD 5410_Lab_Practice.war
+cd MyProject
 
-Local Maven repository: C:LATITUD 5410.m2
+git init
 
-Installed project: C:LATITUD 5410.m2\0.0.1-SNAPSHOT
+notepad README.txt
 
-Installed POM: C:LATITUD 5410.m2\0.0.1-SNAPSHOT.1-SNAPSHOT.pom
+git add .
 
-Installed WAR: C:LATITUD 5410.m2\0.0.1-SNAPSHOT.1-SNAPSHOT.war
+git commit -m "Initial commit"
 
-Lifecycle: validate -> compile -> test -> package -> verify -> install
--> deploy Clean is a phase of the clean lifecycle.
+git branch -M main
 
-CTPI: Compile -> Test -> Package -> Install
+git remote add origin YOUR_GITHUB_URL
 
-Meanings: pom.xml = Maven project configuration target = current build
-output .m2/repository = local Maven artifact storage/cache package =
-creates WAR/JAR in target install = package/build + install artifact in
-.m2 dependency = library/artifact used by project plugin = performs
-Maven build actions dependency:tree = plugin goal, not lifecycle phase
-SNAPSHOT = development version packaging=war = create WAR
-finalName=VehicleRentalManagement = generated artifact name
+git push -u origin main
 
-2. GIT + GITHUB
 
-Actual local project: C:LATITUD 5410
+SET 12 – BRANCH / MERGE / REBASE
 
-Actual remote: https://github.com/psunnykiran/practice.git
+git branch
 
-Initial/global: git init git config –global user.name “your user name”
-git config –global user.email “your email id” git config –global
-user.name git config –global user.email
+git switch -c feature
 
-Basic: git status git add . git add vehicle.jsp git commit -m “intial
-commit” git branch -M main
+git switch main
 
-Remote: git remote add origin1
-https://github.com/psunnykiran/practice.git git remote -v git push -u
-origin main git push -u origin main –force
+git merge feature
 
-Branch: git switch -c feature/vehicle-update git switch -c
-conflict-branch git switch main git branch git branch -a git branch
-–show-current
+git switch feature
 
-Diff/log: git diff git diff – vehicle.jsp git diff –cached git diff main
-feature-login – vehicle.jsp git log -1 –oneline git log –oneline git log
-–oneline –graph –decorate –all
+git rebase main
 
-Feature workflow: git switch -c feature/vehicle-update git diff –
-vehicle.jsp git add vehicle.jsp git commit -m “vehicle.jsp modified” git
-switch main git merge feature/vehicle-update git push
+git push origin main
 
-Revert: git revert 66df35e git status git push
 
-Reset: git reset –soft HEAD~1
+SET 6 – GIT COMMANDS
 
-Restore: git restore vehicle.jsp git restore –staged vehicle.jsp
+git diff
 
-Stash: git stash push -m “stash example” git stash list git stash pop
+git push origin main
 
-Merge conflict: git switch -c conflict-branch git switch main git merge
-conflict-branch After resolving vehicle.jsp: git add vehicle.jsp git
-commit git push
+git pull origin main
 
-.gitignore: echo temp.txt > .gitignore git status git add .gitignore git
-commit -m “add gitignore” git push git rm –cached filename
+git fetch origin
 
-Fetch/pull: git fetch origin git pull origin main
+git branch
 
-Rebase: git switch feature-branch git fetch origin git rebase
-origin/main git rebase –abort
+git revert COMMIT_ID
 
-Remote troubleshooting: git remote -v git remote set-url origin
-https://github.com/psunnykiran/practice.git
+git reset --soft HEAD~1
 
-Git meanings: init=create local repository add=stage commit=save
-snapshot push=send commits to remote fetch=download remote refs without
-integration pull=fetch + integrate merge=combine branches revert=undo
-with a new commit reset –soft=move HEAD back, keep changes staged
-stash=temporarily save uncommitted changes restore=discard/restore or
-unstage rebase=replay commits onto another base .gitignore=ignore
-selected untracked files
 
-3. DOCKER
+SET 8 – GIT COMMANDS
 
-Commands: docker –version docker login docker pull redis:latest docker
-images docker run -it redis:latest bash exit docker ps docker ps -a
-docker stop vehicle-rental docker start vehicle-rental docker rm
-vehicle-rental docker rmi redis:latest
+git diff
 
-Dockerfile: FROM tomcat:9.0 COPY target/VehicleRentalManagement.war
-/usr/local/tomcat/webapps/ROOT.war EXPOSE 8080 CMD [“catalina.sh”,
-“run”]
+git log --oneline
 
-Build: docker build -t vehiclerentalapp:v1 . docker images
+git rebase main
 
-First attempted run: docker run -d –name vehicle-rental -p 8080:8080
-vehiclerentalapp:v1
+git stash
 
-It FAILED because host port 8080 was occupied.
+git stash list
 
-Then: docker rm vehicle-rental
+git stash pop
 
-Successful run: docker run -d –name vehicle-rental -p 7089:8080
-vehiclerentalapp:v1
+git revert COMMIT_ID
 
-Verify: docker ps docker logs vehicle-rental
+git fetch origin
 
-Browser: http://localhost:7089
+git reset --soft HEAD~1
 
-Docker Hub: docker tag vehiclerentalapp:v1
-YOUR_USERNAME/vehiclerentalapp:v1 docker login docker push
-YOUR_USERNAME/vehiclerentalapp:v1
 
-Port mapping: 7089 = host port 8080 = container/Tomcat port
+SET 6 – MERGE CONFLICT
 
-Dockerfile meanings: FROM=base image COPY=copy WAR into Tomcat
-EXPOSE=intended/documented container port CMD=command when container
-starts
+git switch -c feature
 
-Docker flow: mvn clean package -> target.war -> Dockerfile -> docker
-build -t vehiclerentalapp:v1 . -> image -> docker run -d –name
-vehicle-rental -p 7089:8080 vehiclerentalapp:v1 -> container -> Tomcat
--> localhost:7089
+notepad conflict.txt
 
-Docker meanings: image=packaged blueprint container=instance of image
-build=create image run=create/start container ps=running containers ps
--a=all containers stop=stop start=start existing rm=remove container
-logs=container output pull=download image push=upload image Docker
-Hub=image registry GitHub=source-code repository
+git add .
 
-END
+git commit -m "Feature changes"
+
+git switch main
+
+notepad conflict.txt
+
+git add .
+
+git commit -m "Main changes"
+
+git merge feature
+
+# Manually resolve conflict in file
+
+git add .
+
+git commit -m "Resolved merge conflict"
+
+
+========================================
+	jcsheet
+========================================
+
+SET 2 – LIBRARY AUTOMATION
+
+Freestyle → Git
+
+URL:
+https://github.com/anujyogi/carrepo.git
+
+Branch:
+*/main
+
+Poll SCM:
+
+H/2 * * * *
+
+Build Command (only if Maven project):
+
+mvn clean package
+
+Save → Build Now → Console Output
+
+Demonstrate:
+Push GitHub change → Automatic build.
+
+
+SET 5 – HOSPITAL MANAGEMENT
+
+New Item → Pipeline → Pipeline Script
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                git branch: 'main',
+                    url: 'YOUR_GITHUB_URL'
+
+                bat 'mvn clean compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+    }
+}
+
+Save → Build Now → Verify stages and Console Output.
+
+
+SET 6 – CAMPUS EVENT MANAGEMENT
+
+Freestyle → Git → YOUR_GITHUB_URL
+
+Branch: */main
+
+Build Command:
+
+mvn clean package
+
+Post-build Actions → Archive artifacts:
+
+target/*.war
+
+OR
+
+target/*.jar
+
+Save → Build Now
+
+Verify:
+Console Output → BUILD SUCCESS
+Build Artifacts → Download WAR/JAR.
+
+
+SET 8 – BOOK BANK
+
+Freestyle → Git → YOUR_GITHUB_URL
+
+Branch: */main
+
+Poll SCM:
+
+H/5 * * * *
+
+OR
+
+Build periodically:
+
+H/5 * * * *
+
+Build Command:
+
+mvn clean package
+
+Save → Build Now → Console Output.
+
+
+SET 11 – FOOD ORDERING
+
+New Item → Pipeline → Pipeline Script
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'YOUR_GITHUB_URL'
+            }
+        }
+
+        stage('Build & Package') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+    }
+}
+
+Save → Build Now → Console Output.
+
+
+========================================
+	mvsheet
+========================================
+
+mvn -version
+
+mvn clean
+
+mvn compile
+
+mvn test
+
+mvn package
+
+mvn clean package
+
+dir target
+
+
+========================================
+	dcsheet
+========================================
+
+JAR DOCKERFILE
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY target/yourapp.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
+
+
+WAR DOCKERFILE
+
+FROM tomcat:9
+
+COPY target/yourapp.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8080
+
+CMD ["catalina.sh", "run"]
+
+
+WINDOWS CMD – BUILD AND RUN
+
+mvn clean package
+
+dir target
+
+notepad Dockerfile
+
+docker build -t myimage .
+
+docker images
+
+docker run -d --name mycontainer -p 8080:8080 myimage
+
+docker ps
+
+docker ps -a
+
+docker logs mycontainer
+
+docker stop mycontainer
+
+docker rm mycontainer
+
+
+SET 2 – LIBRARY AUTOMATION DOCKER
+
+# Replace example roll number with actual roll number.
+# Use lowercase Docker image name.
+
+docker build -t carimage22cs001 .
+
+docker images
+
+docker login -u YOUR_USERNAME
+
+docker tag carimage22cs001 YOUR_USERNAME/carimage22cs001:latest
+
+docker push YOUR_USERNAME/carimage22cs001:latest
+
+
+SET 5 – HOSPITAL MANAGEMENT DOCKER
+
+mvn clean package
+
+dir target
+
+notepad Dockerfile
+
+docker build -t hospitalapp .
+
+docker run -d --name hospitalcontainer -p 8080:8080 hospitalapp
+
+docker ps
+
+docker logs hospitalcontainer
+
+# Browser:
+http://localhost:8080
+
+
+SET 6 – CAMPUS EVENT DOCKER
+
+mvn clean package
+
+notepad Dockerfile
+
+docker build -t campusevent .
+
+docker run -d --name campuscontainer -p 8080:8080 campusevent
+
+docker ps
+
+docker logs campuscontainer
+
+# Browser:
+http://localhost:8080
+
+
+SET 11 – FOOD ORDERING DOCKER HUB
+
+# FIRST SYSTEM
+
+mvn clean package
+
+docker build -t foodapp .
+
+docker login
+
+docker tag foodapp YOUR_USERNAME/foodapp:latest
+
+docker push YOUR_USERNAME/foodapp:latest
+
+
+# SECOND SYSTEM
+
+docker login
+
+docker pull YOUR_USERNAME/foodapp:latest
+
+docker run -d --name foodcontainer -p 8080:8080 YOUR_USERNAME/foodapp:latest
+
+docker ps
+
+docker logs foodcontainer
+
+# Browser:
+http://localhost:8080
+
+
+========================================
+   		kcsheet
+========================================
+
+CHECK
+
+kubectl version --client
+
+START MINIKUBE
+
+minikube start
+
+CHECK NODES
+
+kubectl get nodes
+
+CREATE NGINX DEPLOYMENT
+
+kubectl create deployment mynginx --image=nginx
+
+CHECK
+
+kubectl get deployments
+
+kubectl get pods
+
+SCALE TO 3
+
+kubectl scale deployment mynginx --replicas=3
+
+VERIFY
+
+kubectl get deployments
+
+kubectl get pods
+
+SCALE TO 5
+
+kubectl scale deployment mynginx --replicas=5
+
+VERIFY
+
+kubectl get pods
+
+DELETE
+
+kubectl delete deployment mynginx
+
+
+========================================
+		awssheet
+========================================
+
+# EC2 UBUNTU TERMINAL
+
+CHECK UBUNTU VERSION
+
+cat /etc/os-release
+
+
+JAVA INSTALLATION
+
+sudo apt update
+
+sudo apt install openjdk-17-jdk -y
+
+java -version
+
+
+TOMCAT 9 – UBUNTU 22.04
+
+sudo apt install tomcat9 -y
+
+sudo systemctl enable tomcat9
+
+sudo systemctl start tomcat9
+
+sudo systemctl status tomcat9
+
+
+TOMCAT 10 – UBUNTU 24.04
+
+sudo apt install tomcat10 -y
+
+sudo systemctl enable tomcat10
+
+sudo systemctl start tomcat10
+
+sudo systemctl status tomcat10
+
+
+VERIFY TOMCAT
+
+curl -I http://localhost:8080
+
+
+# WINDOWS CMD – LOCAL LAPTOP
+
+mvn clean package
+
+dir target\*.war
+
+UPLOAD WAR
+
+scp -i "key.pem" target\app.war ubuntu@PUBLIC_IP:/home/ubuntu/
+
+
+# EC2 UBUNTU TERMINAL
+
+TOMCAT 9 DEPLOYMENT
+
+sudo cp /home/ubuntu/app.war /var/lib/tomcat9/webapps/ROOT.war
+
+sudo systemctl restart tomcat9
+
+
+TOMCAT 10 DEPLOYMENT
+
+sudo cp /home/ubuntu/app.war /var/lib/tomcat10/webapps/ROOT.war
+
+sudo systemctl restart tomcat10
+
+
+CHECK
+
+sudo systemctl status tomcat9
+
+OR
+
+sudo systemctl status tomcat10
+
+
+# BROWSER
+
+http://PUBLIC_IP:8080/
+
+
+========================================
+IMPORTANT REPLACEMENTS
+========================================
+
+YOUR_GITHUB_URL = Actual GitHub repository URL
+
+YOUR_USERNAME = Docker Hub username
+
+22cs001 = Example roll number; replace with actual roll number
+
+yourapp.jar = Actual JAR filename from target
+
+yourapp.war = Actual WAR filename from target
+
+PUBLIC_IP = EC2 Public IPv4 address
+
+key.pem = Downloaded AWS private key
+
+main = Replace with master if required
+
+8080 = Application's actual listening port
